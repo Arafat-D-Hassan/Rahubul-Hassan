@@ -11,24 +11,45 @@
       box-sizing: border-box;
     }
 
+    @keyframes zoomBackground {
+      from {
+        transform: scale(1.1);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://i.postimg.cc/rmQY0yVR/IMG-20250807-202922.jpg') no-repeat center center fixed;
-      background-size: cover;
       position: relative;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      overflow: hidden; /* Prevent potential overflow during animation */
+    }
+
+    /* Create a separate div for the background to animate */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.postimg.cc/rmQY0yVR/IMG-20250807-202922.jpg') no-repeat center center;
+      background-size: cover;
+      animation: zoomBackground 1.5s ease-out forwards;
+      z-index: -2;
     }
 
     body::before {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
-      z-index: 0;
+      z-index: -1;
     }
 
     .content {
@@ -86,7 +107,8 @@
   </style>
 </head>
 <body>
-
+  <div class="background"></div>
+  
   <div class="content">
     <div class="username">Rakibul Hassan</div>
 
